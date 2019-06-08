@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans&display=swap');
+
+/* Z Index */
+$sidebar-z-index: 1;
+
+/* Colors */
+$primary-color: #873C7E;
+$secondary-color: #3C4B9A;
+$success-color: #40884F;
+$danger-color: #C4404B;
+$warning-color: #B69329;
+$info-color: #3995A5;
+$light-color: #E4E4E4;
+$dark-color: #8D8D8D;
+
+/* Box Shadow */
+$box-shadow-small: #171515;
+$box-shadow-medium: #0c0c0c;
+$box-shadow-large: #0e0e0e;
+
+/* Text Color */
+$text-color-1: #757475;
+$text-color-2: #747474;
+$text-color-3: #555555;
+
+/* Background Color */
+$fg-color: #232222;
+$bg-color: #1A191A;
+
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+    font-family: 'Fira Sans', sans-serif;
+    background-color: $bg-color;
+    color: $text-color-1;
+    .navbar {
+        color: $text-color-1;
+        box-shadow: 0 1px 15px 0 $box-shadow-medium;
+        background-color: $fg-color;
+        .navbar-nav {
+            .nav-item {
+                .nav-link {
+                    color: $text-color-3;
+                    &.active {
+                        color: $text-color-2;
+                    }
+                }
+            }
+        }
+    }
+    .container-fluid {
+        min-height: calc(100vh - 60px);
+        .common-header {
+            div {
+                &:first-child {
+                    margin-top: 5px;
+                }
+                &:last-child {
+                    float: right;
+                }
+            }
+            &::before, &::after {
+                content: "";
+                display: block;
+                clear: both;
+            }
+        }
+    }
+    footer {
+        box-shadow: 0 1px 15px 0 $box-shadow-medium;
+    }
+}

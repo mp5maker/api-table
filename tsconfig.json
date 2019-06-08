@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "outDir": "./public/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es6",
+        "jsx": "react",
+        "moduleResolution": "node"
+    },
+    "baseUrl": "./",
+    "paths": {
+        "App/*": [ "src/app/*" ],
+        "Actions/*": ["src/redux/actions/*"],
+        "Api/*": ["src/redux/api/*"],
+        "Constants/*": ["src/constants/*"],
+        "Layouts/*": ["src/layouts/*"],
+        "Reducers/*": ["src/redux/reducers/*"],
+        "ReduxConstants/*": ["src/redux/constants/*"],
+        "Enums/*": ["src/enums/*"],
+        "Utilities/*": ["src/utilities/*"]
+    },
+    "include": ["./src/**/**/**/*"]
+}
