@@ -54,6 +54,7 @@ body {
         }
     }
     .container-fluid {
+        margin-top: 60px;
         min-height: calc(100vh - 60px);
         .row {
             .col {
@@ -64,6 +65,9 @@ body {
                         thead {
                             tr {
                                 th {
+                                    background-color: $fg-color;
+                                    position: sticky;
+                                    top: 58px;
                                     cursor: pointer;
                                     transition: all linear 0.5s;
                                     border-top: 2px solid $primary-color;
