@@ -25,24 +25,34 @@ interface AppPropsInterface {
 }
 
 interface AppStateInterface {
-    posts: Array<any>
+    posts: Array<any>,
+    pageSize: number,
+    currentPage: number
 }
 
 class App extends React.Component<AppPropsInterface, AppStateInterface> {
     constructor(props: AppPropsInterface) {
         super(props)
         this.state = {
-            posts: []
+            posts: [],
+            pageSize: 20,
+            currentPage: 1,
         }
     }
 
     componentDidMount() {
-        this.props.GetPostAction({})
+        const { pageSize, currentPage } = this.state
+        const params = { _page: currentPage, _limit: pageSize }
+        this.props.GetPostAction(params)
     }
 
     render() {
+        const { loading } = this.props.posts
         const tableHead = this.props.posts ? this.props.posts.data ? this.props.posts.data.data ? Object.keys(this.props.posts.data.data[0]) : [] : [] : [];
         const tableData = this.props.posts ? this.props.posts.data ? this.props.posts.data.data ? this.props.posts.data.data : [] : [] : [];
+        console.log(this.props.posts)
+
+        if (loading) return <Loading />
         return (
             <React.Fragment>
                 <Navbar />

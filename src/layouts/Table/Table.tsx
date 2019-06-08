@@ -24,7 +24,6 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
     render() {
         const { tableHead, tableData } = this.props
         const tableHeadReadableName = tableHead.map((tableHead) => Capitalize(tableHead));
-        console.log(tableData)
         return (
             <React.Fragment>
                 <table className="table hover">
