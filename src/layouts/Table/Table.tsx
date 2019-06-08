@@ -1,7 +1,10 @@
 import * as React from 'react';
 
 // @ts-ignore
-import { Capitalize } from "Utilities/Capitalize";
+import { DateTimeConversion } from "Utilities/DateTimeConversion/DateTimeConversion"
+
+// @ts-ignore
+import { Capitalize } from "Utilities/Capitalize/Capitalize";
 
 interface TablePropsInterface {
     tableHead: Array<string>,
@@ -40,11 +43,11 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
                         {
                             tableData.map((perRow, perRowKey) => {
                                 return (
-                                    <tr key={perRowKey}>
+                                    <tr key={perRowKey} className={`table-data-${perRowKey}`}>
                                         {
                                             Object.keys(perRow).map((perColumn, perColumnKey) => (
-                                                <td key={perColumnKey}>
-                                                    { perRow[perColumn] }
+                                                <td key={perColumnKey} className={`${perColumn}`}>
+                                                    { DateTimeConversion(perRow[perColumn]) }
                                                 </td>
                                             ))
                                         }
