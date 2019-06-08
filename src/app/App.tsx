@@ -12,6 +12,9 @@ import { Footer } from 'Layouts/Footer/Footer';
 import { Navbar } from 'Layouts/Navbar/Navbar';
 
 // @ts-ignore
+import { Loading } from 'Layouts/Loading/Loading';
+
+// @ts-ignore
 import { Table } from 'Layouts/Table/Table';
 
 import "./App.scss"
@@ -34,18 +37,23 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
     }
 
     componentDidMount() {
-        // this.props.GetPostAction({})
+        this.props.GetPostAction({})
     }
 
     render() {
-        console.log(this.props.posts)
+        const tableHead = this.props.posts ? this.props.posts.data ? this.props.posts.data.data ? Object.keys(this.props.posts.data.data[0]) : [] : [] : [];
+        const tableData = this.props.posts ? this.props.posts.data ? this.props.posts.data.data ? this.props.posts.data.data : [] : [] : [];
         return (
             <React.Fragment>
                 <Navbar />
                 <div className="container-fluid">
-                    <div className="row">
+                    <div className="row my-4">
                         <div className="col">
-                            <Table />
+                            <div className="table-container">
+                                {
+                                    tableData.length > 0 ? <Table tableHead={tableHead} tableData={tableData} /> : <Loading />
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

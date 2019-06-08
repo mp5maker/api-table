@@ -4,6 +4,7 @@
 $sidebar-z-index: 1;
 
 /* Colors */
+$transparent: transparent;
 $primary-color: #873C7E;
 $secondary-color: #3C4B9A;
 $success-color: #40884F;
@@ -54,19 +55,72 @@ body {
     }
     .container-fluid {
         min-height: calc(100vh - 60px);
-        .common-header {
-            div {
-                &:first-child {
-                    margin-top: 5px;
+        .row {
+            .col {
+                .table-container {
+                    padding: 5px;
+                    .table {
+                        box-shadow: 0 1px 15px 0 $box-shadow-large;
+                        thead {
+                            tr {
+                                th {
+                                    cursor: pointer;
+                                    transition: all linear 0.5s;
+                                    border-top: 2px solid $primary-color;
+                                    border-bottom: 2px solid $primary-color;
+                                    color: $text-color-2;
+                                    word-break: break-all;
+                                    padding: 12px 5px;
+                                    &:hover {
+                                        transition: all linear 0.5s;
+                                        color: $primary-color;
+                                    }
+                                    &:first-child {
+                                        padding-left: 16px;
+                                    }
+                                    &:last-child {
+                                        padding-right: 16px;
+                                    }
+                                }
+                                &:hover {
+                                    th {
+                                        transition: all linear 0.5s;
+                                        border-top: 2px solid $primary-color;
+                                        border-bottom: 2px solid $primary-color;
+                                    }
+                                }
+                            }
+                        }
+                        tbody {
+                            tr {
+                                border-left: 2px solid $transparent;
+                                border-right: 2px solid $transparent;
+                                border-bottom: 2px solid darken($text-color-3, 20%);
+                                border-top: 2px solid $transparent;
+                                td {
+                                    color: $text-color-3;
+                                    word-break: break-all;
+                                    padding: 8px;
+                                    &:first-child {
+                                        padding-left: 16px;
+                                    }
+                                    &:last-child {
+                                        padding-right: 16px;
+                                    }
+                                }
+                                &:hover {
+                                    border-left: 2px solid $primary-color;
+                                    border-right: 2px solid $primary-color;
+                                    border-bottom: 2px solid $primary-color;
+                                    border-top: 2px solid $primary-color;
+                                    td {
+                                        border-top: 2px solid $primary-color;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-                &:last-child {
-                    float: right;
-                }
-            }
-            &::before, &::after {
-                content: "";
-                display: block;
-                clear: both;
             }
         }
     }

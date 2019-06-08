@@ -1,6 +1,12 @@
 import * as React from 'react';
 
-interface TablePropsInterface {}
+// @ts-ignore
+import { Capitalize } from "Utilities/Capitalize";
+
+interface TablePropsInterface {
+    tableHead: Array<string>,
+    tableData: Array<any>,
+}
 
 interface TableStateInterface {}
 
@@ -13,9 +19,41 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
     }
 
     render() {
+        const { tableHead, tableData } = this.props
+        const tableHeadReadableName = tableHead.map((tableHead) => Capitalize(tableHead));
+        console.log(tableData)
         return (
             <React.Fragment>
-                Table
+                <table className="table hover">
+                    <thead>
+                        <tr>
+                            {
+                                tableHead.map((perTableHead, index) => (
+                                    <th key={index}>
+                                        { tableHeadReadableName[index] }
+                                    </th>
+                                ))
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            tableData.map((perRow, perRowKey) => {
+                                return (
+                                    <tr key={perRowKey}>
+                                        {
+                                            Object.keys(perRow).map((perColumn, perColumnKey) => (
+                                                <td key={perColumnKey}>
+                                                    { perRow[perColumn] }
+                                                </td>
+                                            ))
+                                        }
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
             </React.Fragment>
         )
     }
