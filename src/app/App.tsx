@@ -42,6 +42,13 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
             pageSize: 20,
             currentPage: 1,
         }
+        this.onClickPagination = this.onClickPagination.bind(this)
+    }
+
+    onClickPagination({event, page}: any) {
+        const { pageSize } = this.state
+        const params = { _page: page, _limit: pageSize }
+        this.props.GetPostAction(params)
     }
 
     componentDidMount() {
@@ -56,6 +63,9 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
         const tableHead = this.props.posts ? this.props.posts.data ? this.props.posts.data.data ? Object.keys(this.props.posts.data.data[0]) : [] : [] : [];
         const tableData = this.props.posts ? this.props.posts.data ? this.props.posts.data.data ? this.props.posts.data.data : [] : [] : [];
         const hasSelectedItem = Object.keys(selected.selected).length > 0 ? true : false;
+        const { data } = posts
+        const hasData = Object.keys(data).length > 0 ? true : false;
+        const { previous, next, previous_page_number, next_page_number, current, total, count } = data
 
         if (loading) return <Loading />
         return (
@@ -74,29 +84,41 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
                                 </div>
                                 <div className="pagination-container">
                                     <ul className="pagination">
+                                        {
+                                            previous && hasData ?
+                                            <li className="page-item" onClick={(event) => this.onClickPagination({ event, page: previous_page_number })}>
+                                                <a className="page-link">
+                                                    Previous
+                                                </a>
+                                            </li> :
+                                            <li className="page-item disabled">
+                                                <a className="page-link">
+                                                    Previous
+                                                </a>
+                                            </li>
+                                        }
+                                        {
+                                            [current, current+1, current+2].map((perPage, index) => (
+                                                <li className={`page-item ${index == 0 ? "active" : "" }`}
+                                                    key={index}
+                                                    onClick={(event) => this.onClickPagination({ event, page: perPage })}>
+                                                    <a className="page-link">
+                                                        { perPage }
+                                                    </a>
+                                                </li>
+                                            ))
+                                        }
+                                        {
+                                            next && hasData ?
+                                            <li className="page-item" onClick={(event) => this.onClickPagination({ event, page: next_page_number })}>
+                                                <a className="page-link">
+                                                    Next
+                                                </a>
+                                            </li> : <React.Fragment></React.Fragment>
+                                        }
                                         <li className="page-item">
-                                            <a className="page-link" href="#">
-                                                Previous
-                                            </a>
-                                        </li>
-                                        <li className="page-item">
-                                            <a className="page-link" href="#">
-                                                1
-                                            </a>
-                                        </li>
-                                        <li className="page-item">
-                                            <a className="page-link" href="#">
-                                                2
-                                            </a>
-                                        </li>
-                                        <li className="page-item">
-                                            <a className="page-link" href="#">
-                                                3
-                                            </a>
-                                        </li>
-                                        <li className="page-item">
-                                            <a className="page-link" href="#">
-                                                Next
+                                            <a className="page-link">
+                                                { count } / { total }
                                             </a>
                                         </li>
                                     </ul>
