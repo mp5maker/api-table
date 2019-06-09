@@ -42,6 +42,9 @@ body {
         color: $text-color-1;
         box-shadow: 0 1px 15px 0 $box-shadow-medium;
         background-color: $fg-color;
+        .navbar-brand {
+            padding-left: 8px;
+        }
         .navbar-nav {
             .nav-item {
                 .nav-link {
