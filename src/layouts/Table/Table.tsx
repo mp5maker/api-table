@@ -38,9 +38,7 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
     }
 
     onDblClickOutsideTable(event: any) {
-        const current = event.target;
-        const table = (document.querySelector('.table') as HTMLInputElement);
-        if (!current.contains(table)) {
+        if (event.target.closest('.navbar')) {
             this.props.GetSelectedItem({ selected: "" })
             localStorage.setItem('selected', JSON.stringify({}))
             this.setState({ selected: {}})
