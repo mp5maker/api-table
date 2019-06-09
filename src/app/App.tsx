@@ -24,15 +24,16 @@ import "./App.scss";
 
 interface AppPropsInterface {
     GetPostAction: (params: any) => void,
+    FilterAction: (params: any) => void,
+    filter: any,
     posts: any,
     selected: any,
     history: any,
-    match: any
+    match: any,
 }
 
 interface AppStateInterface {
     posts: Array<any>,
-    pageSize: number,
     currentPage: number,
     showAll: boolean
 }
@@ -42,7 +43,6 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
         super(props)
         this.state = {
             posts: [],
-            pageSize: 20,
             currentPage: 1,
             showAll: false
         }
@@ -57,18 +57,39 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
     }
 
     onClickPagination({event, page}: any) {
-        const { pageSize } = this.state;
-        const params = { _page: page, _limit: pageSize };
+        const { sort, order, pageSize } = this.props.filter
+        const params = { _page: page, _limit: pageSize, _sort: sort, _order: order };
         this.props.GetPostAction(params);
-        this.setState({ currentPage: page });
+        this.setState({ currentPage: pageSize });
         this.props.history.push(`/${page}`);
     }
 
     componentDidMount() {
-        const { pageSize, currentPage } = this.state
-        const { page } = this.props.match.params
-        const params = { _page: page ? page : currentPage, _limit: pageSize }
+        const { currentPage } = this.state
+        const { match } = this.props
+        const { sort, order, pageSize } = this.props.filter
+        console.log(match.params)
+        const params = {
+            _page: match.params.page ? match.params.page : currentPage,
+            _limit: pageSize,
+            _sort: match.params.sort ? match.params.sort : sort,
+            _order: match.params.order ? match.params.order : order
+        }
         this.props.GetPostAction(params)
+    }
+
+    componentDidUpdate(prevProps: any) {
+        if (prevProps.filter !== this.props.filter) {
+            const { currentPage } = this.state
+            const { sort, order, pageSize } = this.props.filter
+            const params = {
+                _page: currentPage,
+                _limit: pageSize,
+                _sort: sort,
+                _order: order
+            }
+            this.props.GetPostAction(params)
+        }
     }
 
     render() {
@@ -164,10 +185,11 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
     }
 }
 
-const mapStateToProps = ({ posts, selected }: any) => {
+const mapStateToProps = ({ posts, selected, filter }: any) => {
     return {
         posts: posts,
-        selected: selected
+        selected: selected,
+        filter: filter
     }
 }
 
