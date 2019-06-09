@@ -11,6 +11,7 @@ const Routes = () => (
             <Route path={`/:sort/:order/:page`} component={App} />
             <Route path={`/:page`} component={App} />
             <Route path={`/`} component={App} />
+            <Route component={App} />
         </Switch>
     </Router>
 )

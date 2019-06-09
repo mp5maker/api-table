@@ -18,14 +18,16 @@ module.exports = (env, options) => {
         },
         output: {
             path: path.resolve(__dirname, 'public'),
-            filename: '[name].[contenthash].js'
+            filename: '[name].[contenthash].js',
+            publicPath: '/'
         },
         devtool: 'sourcemap',
         devServer: {
             historyApiFallback: true,
             watchOptions: {
                 poll: true
-            }
+            },
+            publicPath: '/'
         },
         resolve: {
             alias: {

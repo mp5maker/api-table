@@ -61,7 +61,7 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
         const params = { _page: page, _limit: pageSize, _sort: sort, _order: order };
         this.props.GetPostAction(params);
         this.setState({ currentPage: page });
-        this.props.history.push(`/${page}`);
+        this.props.history.push(`/${sort}/${order}/${page}/`);
     }
 
     componentDidMount() {
@@ -172,7 +172,7 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
                         <div className="col">
                             <div className="table-container">
                                 {
-                                    tableData.length > 0 ? <Table tableHead={tableHead} tableData={tableData} /> : <Loading />
+                                    tableData.length > 0 ? <Table tableHead={tableHead} tableData={tableData} {...this.props} /> : <Loading />
                                 }
                             </div>
                         </div>

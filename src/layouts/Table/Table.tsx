@@ -22,6 +22,8 @@ interface TablePropsInterface {
     tableData: Array<any>,
     filter: any,
     selected: any,
+    history: any,
+    match: any,
     GetSelectedItem: (params: any) => void,
     FilterAction: (params: any) => void
 }
@@ -52,28 +54,33 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
     onClickSortOrder({event, tableHeadName}: any) {
         const { filter } = this.props
         const { id, name, designation, joining_date, department } = this.state.filtering
-
+        const { params } = this.props.match
         switch(tableHeadName) {
             case ID:
                 if (id == 'asc') this.setState({ filtering: { ...this.state.filtering, id: 'desc'} })
                 if (id == 'desc') this.setState({ filtering: { ...this.state.filtering, id: 'asc' } })
+                this.props.history.push(`/${ID}/${id == 'asc' ? 'desc' : 'asc'}/${params.page ? params.page : 1}/`)
                 return this.props.FilterAction({...filter, sort: ID, order: id == 'asc' ? 'desc' : 'asc' })
             case NAME:
                 if (name == 'asc') this.setState({ filtering: { ...this.state.filtering, name: 'desc' }  })
                 if (name == 'desc') this.setState({ filtering: { ...this.state.filtering, name: 'asc' }  })
+                this.props.history.push(`/${NAME}/${id == 'asc' ? 'desc' : 'asc'}/${params.page ? params.page : 1}/`)
                 return this.props.FilterAction({...filter, sort: NAME, order: name == 'asc' ? 'desc' : 'asc' })
             case DESIGNATION:
                 if (designation == 'asc') this.setState({ filtering: { ...this.state.filtering, designation: 'desc' } })
                 if (designation == 'desc') this.setState({ filtering: { ...this.state.filtering, designation: 'asc' } })
-                return this.props.FilterAction({ ...filter, sort: NAME, order: designation == 'asc' ? 'desc' : 'asc' })
+                this.props.history.push(`/${DESIGNATION}/${id == 'asc' ? 'desc' : 'asc'}/${params.page ? params.page : 1}/`)
+                return this.props.FilterAction({ ...filter, sort: DESIGNATION, order: designation == 'asc' ? 'desc' : 'asc' })
             case JOINING_DATE:
                 if (joining_date == 'asc') this.setState({ filtering: { ...this.state.filtering, joining_date: 'desc' } })
                 if (joining_date == 'desc') this.setState({ filtering: { ...this.state.filtering, joining_date: 'asc' } })
-                return this.props.FilterAction({ ...filter, sort: NAME, order: joining_date == 'asc' ? 'desc' : 'asc' })
+                this.props.history.push(`/${JOINING_DATE}/${id == 'asc' ? 'desc' : 'asc'}/${params.page ? params.page : 1}/`)
+                return this.props.FilterAction({ ...filter, sort: JOINING_DATE, order: joining_date == 'asc' ? 'desc' : 'asc' })
             case DEPARTMENT:
                 if (department == 'asc') this.setState({ filtering: { ...this.state.filtering, department: 'desc' } })
                 if (department == 'desc') this.setState({ filtering: { ...this.state.filtering, department: 'asc' } })
-                return this.props.FilterAction({ ...filter, sort: NAME, order: department == 'asc' ? 'desc' : 'asc' })
+                this.props.history.push(`/${DEPARTMENT}/${id == 'asc' ? 'desc' : 'asc'}/${params.page ? params.page : 1}/`)
+                return this.props.FilterAction({ ...filter, sort: DEPARTMENT, order: department == 'asc' ? 'desc' : 'asc' })
         }
     }
 
@@ -93,10 +100,19 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
 
     componentDidMount() {
         const previouslySelectedItem = localStorage.getItem('selected')
+        const { sort, order } = this.props.match.params;
+        const filtering = {
+            id: (sort == ID) ? order : "asc",
+            name: (sort == NAME) ? order : "asc",
+            designation: (sort == DESIGNATION) ? order : "asc",
+            joining_date: (sort == JOINING_DATE) ? order : "asc",
+            department: (sort == DEPARTMENT) ? order : "asc",
+        }
         if (previouslySelectedItem) {
-            this.setState({ selected: JSON.parse(previouslySelectedItem) })
+            this.setState({ selected: JSON.parse(previouslySelectedItem), filtering })
             this.props.GetSelectedItem({ selected: JSON.parse(previouslySelectedItem) })
         }
+        if (!previouslySelectedItem) this.setState({ ...this.state, filtering })
         window.addEventListener('dblclick', this.onDblClickOutsideTable)
     }
 
@@ -109,6 +125,7 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
         const { tableHead, tableData } = this.props;
         const tableHeadReadableName = tableHead.map((tableHead) => Capitalize(tableHead));
         const hasSelectedItem = Object.keys(selected).length > 0 ? true : false;
+        // console.log(filtering)
         return (
             <React.Fragment>
                 <table className="table hover">
