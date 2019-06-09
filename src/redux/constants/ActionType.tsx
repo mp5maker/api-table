@@ -1,2 +1,4 @@
 export const GET_POST_SUCCESS = "GET_POST_SUCCESS";
 export const GET_POST_ERROR = "GET_POST_ERROR";
+
+export const GET_SELECTED_ITEM = "GET_SELECTED_ITEM";

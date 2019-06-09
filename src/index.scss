@@ -57,7 +57,47 @@ body {
         margin-top: 60px;
         min-height: calc(100vh - 60px);
         .row {
+            &.common-header-container {
+                margin-top: 5rem;
+            }
             .col {
+                .common-header {
+                    div {
+                        display: inline-block;
+                        padding: 4px;
+                        border: 1px solid $bg-color;
+                        line-height: 32px;
+                        &:first-child {
+                            color: $text-color-1;
+                            .selected {
+                                border: 1px solid $secondary-color;
+                            }
+                        }
+                        &:last-child {
+                            float: right;
+                            color: $text-color-1;
+                            &.pagination-container {
+                                .pagination {
+                                    .page-item {
+                                        .page-link {
+                                            background-color: $fg-color !important;
+                                            color: $secondary-color;
+                                            border: 1px solid $fg-color;
+                                            &:hover {
+                                                border: 1px solid $primary-color;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    &::before, &::after {
+                        content: "";
+                        display: block;
+                        clear: both;
+                    }
+                }
                 .table-container {
                     padding: 5px;
                     .table {
@@ -110,6 +150,26 @@ body {
                                     }
                                     &:last-child {
                                         padding-right: 16px;
+                                    }
+                                }
+                                &.active {
+                                    border-left: 3px solid $secondary-color;
+                                    border-right: 3px solid $secondary-color;
+                                    border-bottom: 3px solid $secondary-color;
+                                    border-top: 3px solid $secondary-color;
+                                    td {
+                                        border-top: 3px solid $secondary-color;
+                                        color: $text-color-1;
+                                    }
+                                    &:hover {
+                                        border-left: 3px solid $primary-color;
+                                        border-right: 3px solid $primary-color;
+                                        border-bottom: 3px solid $primary-color;
+                                        border-top: 3px solid $primary-color;
+                                        td {
+                                            border-top: 3px solid $primary-color;
+                                            color: $text-color-1;
+                                        }
                                     }
                                 }
                                 &:hover {

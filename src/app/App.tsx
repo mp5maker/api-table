@@ -15,19 +15,23 @@ import { Navbar } from 'Layouts/Navbar/Navbar';
 import { Loading } from 'Layouts/Loading/Loading';
 
 // @ts-ignore
-import { Table } from 'Layouts/Table/Table';
+import { PersonInfo } from 'Layouts/PersonInfo/PersonInfo';
+
+// @ts-ignore
+import Table from 'Layouts/Table/Table';
 
 import "./App.scss"
 
 interface AppPropsInterface {
     GetPostAction: (params: any) => void,
-    posts: any
+    posts: any,
+    selected: any
 }
 
 interface AppStateInterface {
     posts: Array<any>,
     pageSize: number,
-    currentPage: number
+    currentPage: number,
 }
 
 class App extends React.Component<AppPropsInterface, AppStateInterface> {
@@ -47,17 +51,60 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
     }
 
     render() {
-        const { loading } = this.props.posts
+        const { posts, selected } = this.props
+        const { loading } = posts
         const tableHead = this.props.posts ? this.props.posts.data ? this.props.posts.data.data ? Object.keys(this.props.posts.data.data[0]) : [] : [] : [];
         const tableData = this.props.posts ? this.props.posts.data ? this.props.posts.data.data ? this.props.posts.data.data : [] : [] : [];
-        console.log(this.props.posts)
+        const hasSelectedItem = Object.keys(selected.selected).length > 0 ? true : false;
 
         if (loading) return <Loading />
         return (
             <React.Fragment>
                 <Navbar />
                 <div className="container-fluid">
-                    <div className="row my-4">
+                    <div className="row common-header-container">
+                        <div className="col">
+                            <div className="common-header">
+                                <div className="selected-item">
+                                    {
+                                        hasSelectedItem ?
+                                        <PersonInfo selected={selected}/>
+                                        : <div>You did not select any item</div>
+                                    }
+                                </div>
+                                <div className="pagination-container">
+                                    <ul className="pagination">
+                                        <li className="page-item">
+                                            <a className="page-link" href="#">
+                                                Previous
+                                            </a>
+                                        </li>
+                                        <li className="page-item">
+                                            <a className="page-link" href="#">
+                                                1
+                                            </a>
+                                        </li>
+                                        <li className="page-item">
+                                            <a className="page-link" href="#">
+                                                2
+                                            </a>
+                                        </li>
+                                        <li className="page-item">
+                                            <a className="page-link" href="#">
+                                                3
+                                            </a>
+                                        </li>
+                                        <li className="page-item">
+                                            <a className="page-link" href="#">
+                                                Next
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row mb-4">
                         <div className="col">
                             <div className="table-container">
                                 {
@@ -73,9 +120,10 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
     }
 }
 
-const mapStateToProps = ({ posts }: any) => {
+const mapStateToProps = ({ posts, selected }: any) => {
     return {
-        posts: posts
+        posts: posts,
+        selected: selected
     }
 }
 
