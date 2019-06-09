@@ -8,7 +8,9 @@ import { createStore, applyMiddleware } from "redux";
 
 import thunk from 'redux-thunk';
 
-import loadable from "@loadable/component";
+// import loadable from "@loadable/component";
+// @ts-ignore
+import { Routes } from 'Routes/Routes'
 
 // @ts-ignore
 import { Loading } from "Layouts/Loading/Loading";
@@ -22,10 +24,9 @@ const store = createStore(RootReducer, applyMiddleware(thunk));
 
 const rendering = () => {
     // @ts-ignore
-    const App = loadable(() => import("App/App"))
     ReactDOM.render(
         <Provider store={store}>
-            {App ? <App /> : <Loading />}
+            {Routes ? <Routes /> : <Loading />}
         </Provider>,
         document.getElementById("root")
     );

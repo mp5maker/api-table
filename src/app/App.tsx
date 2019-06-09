@@ -20,12 +20,14 @@ import { PersonInfo } from 'Layouts/PersonInfo/PersonInfo';
 // @ts-ignore
 import Table from 'Layouts/Table/Table';
 
-import "./App.scss"
+import "./App.scss";
 
 interface AppPropsInterface {
     GetPostAction: (params: any) => void,
     posts: any,
-    selected: any
+    selected: any,
+    history: any,
+    match: any
 }
 
 interface AppStateInterface {
@@ -46,14 +48,17 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
     }
 
     onClickPagination({event, page}: any) {
-        const { pageSize } = this.state
-        const params = { _page: page, _limit: pageSize }
-        this.props.GetPostAction(params)
+        const { pageSize } = this.state;
+        const params = { _page: page, _limit: pageSize };
+        this.props.GetPostAction(params);
+        this.setState({ currentPage: page });
+        this.props.history.push(`/${page}`);
     }
 
     componentDidMount() {
         const { pageSize, currentPage } = this.state
-        const params = { _page: currentPage, _limit: pageSize }
+        const { page } = this.props.match.params
+        const params = { _page: page ? page : currentPage, _limit: pageSize }
         this.props.GetPostAction(params)
     }
 

@@ -17,6 +17,7 @@
         "Layouts/*": ["src/layouts/*"],
         "Reducers/*": ["src/redux/reducers/*"],
         "ReduxConstants/*": ["src/redux/constants/*"],
+        "Routes/*": ["src/routes/*"],
         "Enums/*": ["src/enums/*"],
         "Utilities/*": ["src/utilities/*"]
     },

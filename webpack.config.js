@@ -36,6 +36,7 @@ module.exports = (env, options) => {
                 Layouts: path.resolve(__dirname, 'src/layouts/'),
                 Reducers: path.resolve(__dirname, 'src/redux/reducers/'),
                 ReduxConstants: path.resolve(__dirname, 'src/redux/constants/'),
+                Routes: path.resolve(__dirname, 'src/routes/'),
                 Enums: path.resolve(__dirname, 'src/enums/'),
                 Utilities: path.resolve(__dirname, 'src/utilities/'),
             },
