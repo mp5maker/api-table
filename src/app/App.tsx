@@ -60,7 +60,7 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
         const { sort, order, pageSize } = this.props.filter
         const params = { _page: page, _limit: pageSize, _sort: sort, _order: order };
         this.props.GetPostAction(params);
-        this.setState({ currentPage: pageSize });
+        this.setState({ currentPage: page });
         this.props.history.push(`/${page}`);
     }
 
@@ -68,7 +68,6 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
         const { currentPage } = this.state
         const { match } = this.props
         const { sort, order, pageSize } = this.props.filter
-        console.log(match.params)
         const params = {
             _page: match.params.page ? match.params.page : currentPage,
             _limit: pageSize,
