@@ -18,14 +18,14 @@ const urlWithOrigin = (url: string) => {
  * @param {object} params
  */
 
-const get = ({ url, params }: commonCrudInterface) => {
+const get = ({ url, params={} }: commonCrudInterface) => {
     const { _page, _limit } = params;
     const endPoint = urlWithOrigin(url);
     if (_page && _limit) return axios.get(endPoint, { params });
-    return axios.get(urlWithOrigin(url));
+    return axios.get(endPoint);
 }
 
 // ApiHelper
 export const ApiHelper = {
-    posts: (params: any) => get({ url : "posts/", params })
+    posts: (params: any) => get({ url : "posts/", params }),
 }

@@ -54,9 +54,7 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
     }
 
     onClickShowAll() {
-        this.setState({
-            showAll: !this.state.showAll
-        })
+        this.setState({ showAll: !this.state.showAll })
     }
 
     onClickPagination({event, page}: any) {
@@ -102,7 +100,7 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
         const tableData = this.props.posts ? this.props.posts.data ? this.props.posts.data.data ? this.props.posts.data.data : [] : [] : [];
         const hasSelectedItem = Object.keys(selected.selected).length > 0 ? true : false;
         const { data } = posts
-        const hasData = Object.keys(data).length > 0 ? true : false;
+        const hasData = data ? Object.keys(data).length > 0 ? true : false: false;
         const { previous, next, previous_page_number, next_page_number, current, total, count } = data
         const { showAll } = this.state
 
