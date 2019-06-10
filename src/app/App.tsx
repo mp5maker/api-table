@@ -18,6 +18,9 @@ import { Loading } from 'Layouts/Loading/Loading';
 import { PersonInfo } from 'Layouts/PersonInfo/PersonInfo';
 
 // @ts-ignore
+import { isValidRoute } from "Utilities/Checker/Checker";
+
+// @ts-ignore
 import Table from 'Layouts/Table/Table';
 
 import "./App.scss";
@@ -69,10 +72,10 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
         const { match } = this.props
         const { sort, order, pageSize } = this.props.filter
         const params = {
-            _page: match.params.page ? match.params.page : currentPage,
+            _page: isValidRoute({...match.params, check: 'page'}) ? match.params.page : currentPage,
             _limit: pageSize,
-            _sort: match.params.sort ? match.params.sort : sort,
-            _order: match.params.order ? match.params.order : order
+            _sort: isValidRoute({...match.params, check: 'sort'}) ? match.params.sort : sort,
+            _order: isValidRoute({...match.params, check: 'order'}) ? match.params.order : order
         }
         this.props.GetPostAction(params)
     }
@@ -87,9 +90,7 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
                 _sort: sort,
                 _order: order
             }
-            this.setState({
-                currentPage: page
-            })
+            this.setState({ currentPage: page })
             this.props.GetPostAction(params)
         }
     }

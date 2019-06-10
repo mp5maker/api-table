@@ -17,6 +17,9 @@ import { Capitalize } from "Utilities/Capitalize/Capitalize";
 // @ts-ignore
 import { ID, NAME, DESIGNATION, JOINING_DATE, DEPARTMENT } from 'Constants/Constants';
 
+// @ts-ignore
+import { isValidRoute } from "Utilities/Checker/Checker";
+
 interface TablePropsInterface {
     tableHead: Array<string>,
     tableData: Array<any>,
@@ -70,7 +73,7 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
             sort: type,
             order: filtering[type] == 'asc' ? 'desc' : 'asc'
         })
-        const route = `/${type}/${filtering[type] == 'asc' ? 'desc' : 'asc'}/${params.page ? params.page : 1}/`
+        const route = `/${type}/${filtering[type] == 'asc' ? 'desc' : 'asc'}/${isValidRoute({...params, check: 'page' }) ? params.page : 1}/`
         this.props.history.push(route)
     }
 
