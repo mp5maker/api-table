@@ -49,38 +49,33 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
         this.onClickTableRow = this.onClickTableRow.bind(this);
         this.onDblClickOutsideTable = this.onDblClickOutsideTable.bind(this);
         this.onClickSortOrder = this.onClickSortOrder.bind(this);
+        this.performFiltering = this.performFiltering.bind(this);
+    }
+
+    performFiltering(type: string): void {
+        const { filter } = this.props
+        const { filtering } = this.state
+        const { params } = this.props.match
+
+        if (filtering[type] == 'asc') this.setState({ filtering: { ...this.state.filtering, [type]: 'desc' } })
+        if (filtering[type] == 'desc') this.setState({ filtering: { ...this.state.filtering, [type]: 'asc' } })
+        this.props.FilterAction({ ...filter, sort: ID, order: filtering[type] == 'asc' ? 'desc' : 'asc' })
+        this.props.history.push(`/${type}/${filtering[type] == 'asc' ? 'desc' : 'asc'}/${params.page ? params.page : 1}/`)
     }
 
     onClickSortOrder({event, tableHeadName}: any) {
-        const { filter } = this.props
-        const { id, name, designation, joining_date, department } = this.state.filtering
-        const { params } = this.props.match
         switch(tableHeadName) {
             case ID:
-                if (id == 'asc') this.setState({ filtering: { ...this.state.filtering, id: 'desc'} })
-                if (id == 'desc') this.setState({ filtering: { ...this.state.filtering, id: 'asc' } })
-                this.props.history.push(`/${ID}/${id == 'asc' ? 'desc' : 'asc'}/${params.page ? params.page : 1}/`)
-                return this.props.FilterAction({...filter, sort: ID, order: id == 'asc' ? 'desc' : 'asc' })
+                return this.performFiltering(ID)
             case NAME:
-                if (name == 'asc') this.setState({ filtering: { ...this.state.filtering, name: 'desc' }  })
-                if (name == 'desc') this.setState({ filtering: { ...this.state.filtering, name: 'asc' }  })
-                this.props.history.push(`/${NAME}/${id == 'asc' ? 'desc' : 'asc'}/${params.page ? params.page : 1}/`)
-                return this.props.FilterAction({...filter, sort: NAME, order: name == 'asc' ? 'desc' : 'asc' })
+                return this.performFiltering(NAME)
             case DESIGNATION:
-                if (designation == 'asc') this.setState({ filtering: { ...this.state.filtering, designation: 'desc' } })
-                if (designation == 'desc') this.setState({ filtering: { ...this.state.filtering, designation: 'asc' } })
-                this.props.history.push(`/${DESIGNATION}/${id == 'asc' ? 'desc' : 'asc'}/${params.page ? params.page : 1}/`)
-                return this.props.FilterAction({ ...filter, sort: DESIGNATION, order: designation == 'asc' ? 'desc' : 'asc' })
+                return this.performFiltering(DESIGNATION)
             case JOINING_DATE:
-                if (joining_date == 'asc') this.setState({ filtering: { ...this.state.filtering, joining_date: 'desc' } })
-                if (joining_date == 'desc') this.setState({ filtering: { ...this.state.filtering, joining_date: 'asc' } })
-                this.props.history.push(`/${JOINING_DATE}/${id == 'asc' ? 'desc' : 'asc'}/${params.page ? params.page : 1}/`)
-                return this.props.FilterAction({ ...filter, sort: JOINING_DATE, order: joining_date == 'asc' ? 'desc' : 'asc' })
+                return this.performFiltering(JOINING_DATE)
             case DEPARTMENT:
-                if (department == 'asc') this.setState({ filtering: { ...this.state.filtering, department: 'desc' } })
-                if (department == 'desc') this.setState({ filtering: { ...this.state.filtering, department: 'asc' } })
-                this.props.history.push(`/${DEPARTMENT}/${id == 'asc' ? 'desc' : 'asc'}/${params.page ? params.page : 1}/`)
-                return this.props.FilterAction({ ...filter, sort: DEPARTMENT, order: department == 'asc' ? 'desc' : 'asc' })
+                return this.performFiltering(DEPARTMENT)
+            default: null
         }
     }
 
