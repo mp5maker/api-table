@@ -79,14 +79,17 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
 
     componentDidUpdate(prevProps: any) {
         if (prevProps.filter !== this.props.filter) {
-            const { currentPage } = this.state
             const { sort, order, pageSize } = this.props.filter
+            const { page } = this.props.match.params
             const params = {
-                _page: currentPage,
+                _page: page,
                 _limit: pageSize,
                 _sort: sort,
                 _order: order
             }
+            this.setState({
+                currentPage: page
+            })
             this.props.GetPostAction(params)
         }
     }

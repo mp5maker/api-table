@@ -33,18 +33,20 @@ interface TableStateInterface {
     filtering: any,
 }
 
+const defaultFilterState = {
+    id: "asc",
+    name: "asc",
+    designation: "asc",
+    joining_date: "asc",
+    department: "asc",
+}
+
 class Table extends React.Component<TablePropsInterface, TableStateInterface> {
     constructor(props: TablePropsInterface) {
         super(props)
         this.state = {
             selected: {},
-            filtering: {
-                id: "asc",
-                name: "asc",
-                designation: "asc",
-                joining_date: "asc",
-                department: "asc",
-            }
+            filtering: { ...defaultFilterState }
         }
         this.onClickTableRow = this.onClickTableRow.bind(this);
         this.onDblClickOutsideTable = this.onDblClickOutsideTable.bind(this);
@@ -57,10 +59,19 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
         const { filtering } = this.state
         const { params } = this.props.match
 
-        if (filtering[type] == 'asc') this.setState({ filtering: { ...this.state.filtering, [type]: 'desc' } })
-        if (filtering[type] == 'desc') this.setState({ filtering: { ...this.state.filtering, [type]: 'asc' } })
-        this.props.FilterAction({ ...filter, sort: ID, order: filtering[type] == 'asc' ? 'desc' : 'asc' })
-        this.props.history.push(`/${type}/${filtering[type] == 'asc' ? 'desc' : 'asc'}/${params.page ? params.page : 1}/`)
+        this.setState({
+            filtering: {
+                ...defaultFilterState,
+                [type]: filtering[type] == 'asc' ? 'desc' : 'asc'
+            }
+        })
+        this.props.FilterAction({
+            ...filter,
+            sort: type,
+            order: filtering[type] == 'asc' ? 'desc' : 'asc'
+        })
+        const route = `/${type}/${filtering[type] == 'asc' ? 'desc' : 'asc'}/${params.page ? params.page : 1}/`
+        this.props.history.push(route)
     }
 
     onClickSortOrder({event, tableHeadName}: any) {
@@ -120,7 +131,7 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
         const { tableHead, tableData } = this.props;
         const tableHeadReadableName = tableHead.map((tableHead) => Capitalize(tableHead));
         const hasSelectedItem = Object.keys(selected).length > 0 ? true : false;
-        // console.log(filtering)
+
         return (
             <React.Fragment>
                 <table className="table hover">
@@ -128,17 +139,19 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
                         <tr>
                             {
                                 tableHead.map((perTableHead, index) => (
-                                    <th key={index} onClick={(event) => this.onClickSortOrder({ event, tableHeadName: tableHead[index] })}>
-                                        { tableHeadReadableName[index] } &nbsp;
-                                        {
-                                            filtering[tableHead[index]] == 'asc' ?
-                                            <small>
-                                                <i className="fas fa-arrow-up"></i>
-                                            </small> :
-                                            <small>
-                                                <i className="fas fa-arrow-down"></i>
-                                            </small>
-                                        }
+                                    <th key={index}>
+                                        <span onClick={(event) => this.onClickSortOrder({ event, tableHeadName: tableHead[index] })}>
+                                            { tableHeadReadableName[index] } &nbsp;
+                                            {
+                                                filtering[tableHead[index]] == 'asc' ?
+                                                <small>
+                                                    <i className="fas fa-arrow-up"></i>
+                                                </small> :
+                                                <small>
+                                                    <i className="fas fa-arrow-down"></i>
+                                                </small>
+                                            }
+                                        </span>
                                     </th>
                                 ))
                             }
