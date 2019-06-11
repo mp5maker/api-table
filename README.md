@@ -4,7 +4,7 @@
     https://www.json-generator.com/
 
     [
-        '{{repeat(20)}}',
+        '{{repeat(5050)}}',
         {
             id: '{{index() + 1}}',
             name: '{{firstName()}} {{surname()}}',

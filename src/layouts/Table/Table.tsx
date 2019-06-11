@@ -170,7 +170,7 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
                                         className={`table-data-${perRow.id} ${selected.id == perRow.id && hasSelectedItem ? 'active' : ''}`}>
                                         {
                                             Object.keys(perRow).map((perColumn, perColumnKey) => (
-                                                <td key={perColumnKey} className={`${perColumn}`}>
+                                                <td key={perColumnKey} className={`${perColumn}`} data-head={Capitalize(perColumn)}>
                                                     { DateTimeConversion(perRow[perColumn]) }
                                                 </td>
                                             ))
