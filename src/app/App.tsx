@@ -146,6 +146,7 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
         const hasData = data ? Object.keys(data).length > 0 ? true : false: false;
         const { previous, next, previous_page_number, next_page_number, current, total, count } = data
         const { showAll } = this.state
+        const pageNumberArray = current ? [current, current + 1, current + 2] : [1, 2, 3];
 
         if (loading) return <Loading />
         return (
@@ -168,7 +169,7 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
                                             previous && hasData ?
                                             <li
                                                 className={`page-item  ${showAll ? 'd-none' : ''}`}
-                                                onClick={(event) => this.onClickPagination({ event, page: previous_page_number })}>
+                                                onClick={(event) => this.onClickPagination({ event, page: previous_page_number ? previous_page_number : 0 })}>
                                                 <a className="page-link">
                                                     Previous
                                                 </a>
@@ -180,10 +181,11 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
                                             </li>
                                         }
                                         {
-                                            [current, current+1, current+2].map((perPage, index) => (
-                                                <li className={`page-item ${index == 0 ? "active" : ""} ${showAll ? 'd-none' : ''}`}
+                                            pageNumberArray.map((perPage, index) => (
+                                                <li
+                                                    className={`page-item ${index == 0 ? "active" : ""} ${showAll ? 'd-none' : ''}`}
                                                     key={index}
-                                                    onClick={(event) => this.onClickPagination({ event, page: perPage })}>
+                                                    onClick={(event) => this.onClickPagination({ event, page: perPage ? perPage : 0 })}>
                                                     <a className="page-link">
                                                         { perPage }
                                                     </a>
@@ -192,7 +194,9 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
                                         }
                                         {
                                             next && hasData ?
-                                            <li className={`page-item ${showAll ? 'd-none' : ''}`} onClick={(event) => this.onClickPagination({ event, page: next_page_number })}>
+                                            <li
+                                                className={`page-item ${showAll ? 'd-none' : ''}`}
+                                                onClick={(event) => this.onClickPagination({ event, page: next_page_number ? next_page_number : 0 })}>
                                                 <a className="page-link">
                                                     Next
                                                 </a>
@@ -205,7 +209,7 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
                                         </li>
                                         <li className="page-item">
                                             <a className="page-link">
-                                                { count } / { total }
+                                                { count ? count : 0 } / { total ? total : 0 }
                                             </a>
                                         </li>
                                     </ul>
