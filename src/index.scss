@@ -228,6 +228,7 @@ body {
                                 text-align: right;
                                 margin-top: 12px;
                                 tr {
+                                    box-shadow: 0 1px 15px $box-shadow-medium;
                                     border: 2px solid $transparent;
                                     margin-bottom: 12px;
                                     td {

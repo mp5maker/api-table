@@ -60,7 +60,24 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
     performFiltering(type: string): void {
         const { filter } = this.props
         const { filtering } = this.state
-        const { params } = this.props.match
+        const { params, path } = this.props.match
+        const isAll = (path == "/all/:sort?/:order?");
+
+        if (!isAll) {
+            const route = `/${type}/${filtering[type] == 'asc' ? 'desc' : 'asc'}/${isValidRoute({...params, check: 'page' }) ? params.page : 1}/`
+            this.props.history.push(route)
+        }
+
+        if (isAll) {
+            const route = `/all/${type}/${filtering[type] == 'asc' ? 'desc' : 'asc'}/`
+            this.props.history.push(route)
+        }
+
+        this.props.FilterAction({
+            ...filter,
+            sort: type,
+            order: filtering[type] == 'asc' ? 'desc' : 'asc'
+        })
 
         this.setState({
             filtering: {
@@ -68,13 +85,6 @@ class Table extends React.Component<TablePropsInterface, TableStateInterface> {
                 [type]: filtering[type] == 'asc' ? 'desc' : 'asc'
             }
         })
-        this.props.FilterAction({
-            ...filter,
-            sort: type,
-            order: filtering[type] == 'asc' ? 'desc' : 'asc'
-        })
-        const route = `/${type}/${filtering[type] == 'asc' ? 'desc' : 'asc'}/${isValidRoute({...params, check: 'page' }) ? params.page : 1}/`
-        this.props.history.push(route)
     }
 
     onClickSortOrder({event, tableHeadName}: any) {

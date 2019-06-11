@@ -8,8 +8,9 @@ import App from  "App/App"
 const Routes = () => (
     <Router>
         <Switch>
+            <Route path={`/all/:sort?/:order?`} component={App} />
+            <Route path={`/all/:sort/:order`} component={App} />
             <Route path={`/:sort/:order/:page`} component={App} />
-            <Route path={`/:page`} component={App} />
             <Route path={`/`} component={App} />
             <Route component={App} />
         </Switch>
