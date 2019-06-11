@@ -20,6 +20,8 @@ import { ID, NAME, DESIGNATION, JOINING_DATE, DEPARTMENT } from 'Constants/Const
 // @ts-ignore
 import { isValidRoute } from "Utilities/Checker/Checker";
 
+import "./Table.scss"
+
 interface TablePropsInterface {
     tableHead: Array<string>,
     tableData: Array<any>,

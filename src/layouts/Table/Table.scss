@@ -1,0 +1,80 @@
+.table-container {
+    padding: 5px;
+    .table {
+        thead {
+            tr {
+                th {
+                    position: sticky;
+                    top: 58px;
+                    cursor: pointer;
+                    transition: all linear 0.5s;
+                    word-break: break-all;
+                    padding: 12px 5px;
+                    &:hover {
+                        transition: all linear 0.5s;
+                    }
+                    &:first-child {
+                        padding-left: 16px;
+                    }
+                    &:last-child {
+                        padding-right: 16px;
+                    }
+                }
+                &:hover {
+                    th {
+                        transition: all linear 0.5s;
+                    }
+                }
+            }
+        }
+        tbody {
+            tr {
+                td {
+                    word-break: break-all;
+                    padding: 8px;
+                    &:first-child {
+                        padding-left: 16px;
+                    }
+                    &:last-child {
+                        padding-right: 16px;
+                    }
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: 767px) {
+        .table {
+            display: block;
+            thead {
+                display: none;
+            }
+            tbody, tr, td {
+                display: block;
+            }
+            tbody {
+                text-align: right;
+                margin-top: 12px;
+                tr {
+                    margin-bottom: 12px;
+                    td {
+                        &:first-child {
+                            padding-left: 8px;
+                        }
+                        &:last-child {
+                            padding-right: 8px;
+                        }
+                        &::before {
+                            content: attr(data-head);
+                            float: left;
+                        }
+                    }
+                    &::before, &::after {
+                        clear: both;
+                        content: "";
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}

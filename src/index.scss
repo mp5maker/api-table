@@ -42,9 +42,6 @@ body {
         color: $text-color-1;
         box-shadow: 0 1px 15px 0 $box-shadow-medium;
         background-color: $fg-color;
-        .navbar-brand {
-            padding-left: 8px;
-        }
         .navbar-nav {
             .nav-item {
                 .nav-link {
@@ -66,10 +63,7 @@ body {
             .col {
                 .common-header {
                     div {
-                        display: inline-block;
-                        padding: 4px;
                         border: 1px solid $bg-color;
-                        line-height: 32px;
                         &:first-child {
                             color: $text-color-1;
                             .selected {
@@ -77,16 +71,10 @@ body {
                             }
                         }
                         &:last-child {
-                            float: right;
                             color: $text-color-1;
                             &.pagination-container {
-                                cursor: pointer;
                                 .pagination {
                                     .page-item {
-                                        &.disabled {
-                                            cursor: not-allowed;
-                                            opacity: 0.5;
-                                        }
                                         .page-link {
                                             background-color: $fg-color !important;
                                             color: $secondary-color;
@@ -109,26 +97,6 @@ body {
                                 }
                             }
                         }
-                        @media only screen and (max-width: 1000px) {
-                            display: block;
-                            &:last-child {
-                                float: unset;
-                                width: 100%;
-                            }
-                        }
-                        @media only screen and (max-width: 500px) {
-                            &:last-child {
-                                &.pagination-container {
-                                    .pagination {
-                                        .page-item {
-                                            &:nth-child(2), &:nth-child(3), &:nth-child(4), &:last-child {
-                                                display: none;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
                     }
                     &::before, &::after {
                         content: "";
@@ -144,29 +112,15 @@ body {
                             tr {
                                 th {
                                     background-color: $fg-color;
-                                    position: sticky;
-                                    top: 58px;
-                                    cursor: pointer;
-                                    transition: all linear 0.5s;
                                     border-top: 2px solid $primary-color;
                                     border-bottom: 2px solid $primary-color;
                                     color: $text-color-2;
-                                    word-break: break-all;
-                                    padding: 12px 5px;
                                     &:hover {
-                                        transition: all linear 0.5s;
                                         color: $primary-color;
-                                    }
-                                    &:first-child {
-                                        padding-left: 16px;
-                                    }
-                                    &:last-child {
-                                        padding-right: 16px;
                                     }
                                 }
                                 &:hover {
                                     th {
-                                        transition: all linear 0.5s;
                                         border-top: 2px solid $primary-color;
                                         border-bottom: 2px solid $primary-color;
                                     }
@@ -181,14 +135,6 @@ body {
                                 border-top: 2px solid $transparent;
                                 td {
                                     color: $text-color-3;
-                                    word-break: break-all;
-                                    padding: 8px;
-                                    &:first-child {
-                                        padding-left: 16px;
-                                    }
-                                    &:last-child {
-                                        padding-right: 16px;
-                                    }
                                 }
                                 &.active {
                                     border: 3px solid $secondary-color;
@@ -216,33 +162,12 @@ body {
                     }
                     @media only screen and (max-width: 767px) {
                         .table {
-                            box-shadow: none;
-                            display: block;
-                            thead {
-                                display: none;
-                            }
-                            tbody, tr, td {
-                                display: block;
-                            }
                             tbody {
-                                text-align: right;
-                                margin-top: 12px;
                                 tr {
                                     box-shadow: 0 1px 15px $box-shadow-medium;
                                     border: 2px solid $transparent;
-                                    margin-bottom: 12px;
                                     td {
-                                        &:first-child {
-                                            padding-left: 8px;
-                                        }
-                                        &:last-child {
-                                            padding-right: 8px;
-                                        }
                                         border: 1px solid darken($text-color-3, 20%);
-                                        &::before {
-                                            content: attr(data-head);
-                                            float: left;
-                                        }
                                     }
                                     &:hover {
                                         border: 2px solid $primary-color;
@@ -261,11 +186,6 @@ body {
                                                 border-top: none;
                                             }
                                         }
-                                    }
-                                    &::before, &::after {
-                                        clear: both;
-                                        content: "";
-                                        display: block;
                                     }
                                 }
                             }

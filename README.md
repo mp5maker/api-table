@@ -18,15 +18,28 @@
 ### Starting the project ###
 
     npm install
-    npm run build && npm run dev
+    npm run build
+    npm run dev
     npm run server
-    npm run test:watch
+
+>***npm run dev**  [Run this is one terminal]*
+
+>***npm run server** [Run this in another terminal]*
 
 ***
+
+### Test ###
+
+    npm run test
+    npm run test:watch
+
+
 ### Additional Notes ###
 
 **For this Project**
->   Scrolling Implementation (Like Facebook) has been excluded for all the data showing due to time constraints
+>  Scrolling Implementation (Like Facebook) is not implemented
+
+> Date field orders by string not by actual date
 
 > Testing for many components has been excluded
 
@@ -38,11 +51,15 @@
 
 [Live Demo](https://heroku-api-table.herokuapp.com/)
 
-[Live Fake Rest Api](https://heroku-fake-rest-api.herokuapp.com/)
+[Live Fake Rest Api](https://heroku-fake-rest-api.herokuapp.com/posts)
 
 ***
 
-### Some caveats regarding Live Demo/Live Fake Rest Api ###
+### Some caveats regarding Live Demo / Live Fake Rest Api ###
 
 Live demo has been deployed in **heroku** using the **US Server**
+
 It is very **slow** and **sometimes** some of the **filters do not work**
+
+**Reason** Fake Rest Api in heroku is giving trouble with _order=asc and _order=desc.
+It goes in "ascending order" by default
