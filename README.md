@@ -37,9 +37,11 @@
 ### Additional Notes ###
 
 **For this Project**
->  Scrolling Implementation (Like Facebook) is not implemented
+>  Scrolling Implementation (Like Facebook) is not implemented [For All Data View]
 
 > Date field orders by string not by actual date
+
+> Poor error handling without the fake rest api
 
 > Testing for many components has been excluded
 

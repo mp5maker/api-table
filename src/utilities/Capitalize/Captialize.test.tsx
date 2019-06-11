@@ -1,5 +1,5 @@
 // @ts-ignore
-import { Capitalize } from "Utilities/Capitalize";
+import { Capitalize } from "Utilities/Capitalize/Capitalize";
 
 describe("Capitalize Function Test", () => {
     it('Should split the underscores and turn them to individual words', () => {

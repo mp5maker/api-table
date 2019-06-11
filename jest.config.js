@@ -16,7 +16,6 @@ module.exports = {
         "^Layouts(.*)": "<rootDir>/src/layouts/$1",
         "^Reducers(.*)": "<rootDir>/src/redux/reducers/$1",
         "^ReduxConstants(.*)": "<rootDir>/src/redux/constants/$1",
-        "^Enums(.*)": "<rootDir>/src/enums/$1",
         "^Utilities(.*)": "<rootDir>/src/utilities/$1",
         "^Routes(.*)": "<rootDir>/src/routes/$1",
         "^.+\\.(css|less|scss)$": "babel-jest"
